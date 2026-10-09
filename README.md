@@ -8,11 +8,13 @@ Requires Python 3.10 or newer. From a fresh checkout:
 
 ```console
 python -m pip install .
-evalset-receipt create examples/dataset.jsonl --output receipt.json
-evalset-receipt verify examples/dataset.jsonl receipt.json
+evalset-receipt create examples/dataset.jsonl --output examples/receipt.json
+evalset-receipt verify examples/dataset.jsonl examples/receipt.json
 ```
 
-The receipt contains only a format version, SHA-256 digest, byte count, and LF-delimited record count. Matching content exits 0; changed content exits 1; malformed inputs/receipts exit 2.
+The receipt contains only a format version, SHA-256 digest, byte count, and LF-delimited record count. Matching content exits 0; changed content exits 1; unreadable inputs or invalid receipts exit 2. Dataset lines are not parsed or validated.
+
+The CLI prints a one-line JSON status and receipt metadata. It does not print dataset records or parser exception details. A mismatch is a valid verification result and is reported with exit code 1; invalid input or an invalid receipt is reported with exit code 2.
 
 ## Scope
 
